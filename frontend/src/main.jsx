@@ -3,8 +3,11 @@ import ReactDOM from 'react-dom/client'
 import './styles/index.css'
 
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+
 import Home from './pages/Home';
 import Login from './pages/Login'
+import Register from './pages/Register';
+
 import App from './App';
 import Error from './pages/Error';
 
@@ -21,6 +24,10 @@ const router = createBrowserRouter([
       {
         path: 'login',
         element: <Login/>
+      },
+      {
+        path: 'register',
+        element: <Register/>
       },
     ],
   },

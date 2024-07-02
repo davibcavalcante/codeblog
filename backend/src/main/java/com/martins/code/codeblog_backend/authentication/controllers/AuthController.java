@@ -9,13 +9,11 @@ import com.martins.code.codeblog_backend.authentication.security.TokenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
+@CrossOrigin(origins = "http://domain2.com", maxAge = 3600)
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
@@ -50,6 +48,7 @@ public class AuthController {
             this.userRepository.save(newUser);
 
             String token = this.tokenService.createToken(newUser);
+            System.out.println(newUser.getUsername());
             /* TODO: verificar quais parametros são esperados no frontend e criar record ResponseDTO(String)*/
             return ResponseEntity.ok(new ResponseDTO(newUser.getUsername(), token));
         }

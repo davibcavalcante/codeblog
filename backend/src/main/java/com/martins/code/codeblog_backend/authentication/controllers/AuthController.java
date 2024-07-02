@@ -37,9 +37,9 @@ public class AuthController {
     public ResponseEntity register(@RequestBody RegisterRequestDTO body) {
 
         Optional<User> user = this.userRepository.findByEmail(body.email());
-
+        
         if(user.isEmpty()) {
-
+            System.out.println(body);
             User newUser = new User();
             newUser.setPassword(passwordEncoder.encode(body.password()));
             newUser.setEmail(body.email());
@@ -49,7 +49,6 @@ public class AuthController {
 
             String token = this.tokenService.createToken(newUser);
             /* TODO: verificar quais parametros são esperados no frontend e criar record ResponseDTO(String)*/
-            System.out.println(newUser.getPassword());
             return ResponseEntity.ok(new ResponseDTO(newUser.getUsername(), token));
         }
         return ResponseEntity.badRequest().build();

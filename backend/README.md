@@ -92,6 +92,7 @@ Retorna uma string "Hello World". Serve para testar se a autenticação foi bem 
 #### Repostas
 
 - "200 OK": Sucesso na requisição.
+- "403 forbiden": Usuário não fez login
 - "404 not found": URL incorreta. Revise se está utilizando a URL e os endpoints corretos.
 
 #### Exemplo de requisição

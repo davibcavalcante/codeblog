@@ -8,8 +8,8 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "users")
-@Getter @Setter
-@AllArgsConstructor @NoArgsConstructor
+@Setter
+@NoArgsConstructor
 
 public class User {
     @Id
@@ -19,4 +19,24 @@ public class User {
     private String email;
     private String password;
     private String username;
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getUsername() {
+        return username;
+    }
 }

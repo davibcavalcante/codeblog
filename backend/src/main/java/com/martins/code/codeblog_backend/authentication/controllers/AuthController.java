@@ -13,7 +13,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
+<<<<<<< HEAD
 @CrossOrigin(origins = "http://domain2.com", maxAge = 3600)
+=======
+@CrossOrigin(origins = "http://localhost:5173", maxAge = 3600)
+>>>>>>> main
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
@@ -37,9 +41,9 @@ public class AuthController {
     public ResponseEntity register(@RequestBody RegisterRequestDTO body) {
 
         Optional<User> user = this.userRepository.findByEmail(body.email());
-
+        
         if(user.isEmpty()) {
-
+            System.out.println(body);
             User newUser = new User();
             newUser.setPassword(passwordEncoder.encode(body.password()));
             newUser.setEmail(body.email());

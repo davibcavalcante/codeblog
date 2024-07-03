@@ -13,7 +13,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
+<<<<<<< HEAD
+@CrossOrigin(origins = "http://domain2.com", maxAge = 3600)
+=======
 @CrossOrigin(origins = "http://localhost:5173", maxAge = 3600)
+>>>>>>> main
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
@@ -48,6 +52,7 @@ public class AuthController {
             this.userRepository.save(newUser);
 
             String token = this.tokenService.createToken(newUser);
+            System.out.println(newUser.getUsername());
             /* TODO: verificar quais parametros são esperados no frontend e criar record ResponseDTO(String)*/
             return ResponseEntity.ok(new ResponseDTO(newUser.getUsername(), token));
         }

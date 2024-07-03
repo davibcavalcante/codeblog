@@ -1,8 +1,14 @@
-# React + Vite
+# CODEBLOG - FRONTEND
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## PARA INICIAR A APLICAÇÃO:
 
-Currently, two official plugins are available:
+* Clone o repositório **git clone https://github.com/davibcavalcante/codeblog.git**
+* Para executar o frontend da aplicação, abra o terminal e digite **cd frontend**
+* Antes de executar instale os pacotes com **npm install**
+* Feito isso, inicie o frontend com **npm run dev**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ROTAS DESENVOLVIDAS ATÉ - **03/07**
+
+* /login
+* /register
+* /profile

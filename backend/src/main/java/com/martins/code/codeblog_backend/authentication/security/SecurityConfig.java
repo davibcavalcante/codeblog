@@ -7,10 +7,7 @@ import com.martins.code.codeblog_backend.authentication.security.SecurityFilter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-<<<<<<< HEAD
 import org.apache.catalina.filters.CorsFilter;
-=======
->>>>>>> main
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;

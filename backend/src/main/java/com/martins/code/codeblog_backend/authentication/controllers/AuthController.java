@@ -13,11 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
-<<<<<<< HEAD
 @CrossOrigin(origins = "http://domain2.com", maxAge = 3600)
-=======
-@CrossOrigin(origins = "http://localhost:5173", maxAge = 3600)
->>>>>>> main
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor

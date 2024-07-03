@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-const NavLinks = ({ path, icon, text}) => {
+const AsideNav = ({ path, icon = '', text}) => {
     return (
         <section>
             <li className='pb-4 px-4'>
@@ -13,4 +13,4 @@ const NavLinks = ({ path, icon, text}) => {
     );
 }
 
-export default NavLinks;
+export default AsideNav;

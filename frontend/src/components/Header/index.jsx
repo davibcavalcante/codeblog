@@ -2,21 +2,18 @@ import { Link } from 'react-router-dom';
 import { Menu, Instagram, Search } from 'lucide-react';
 import { useContext, useState } from 'react';
 
-import AsideContext from '../utils/AsideContext';
+import AsideContext from '../../utils/AsideContext';
+import { getUser } from '../../utils/auth';
 
 const Header = () => {
     const { toggleAside } = useContext(AsideContext);
 
     const [ isLoggedIn, setIsLoggedIn ] = useState(true);
 
-    const user = {
-        name: 'Gabriel Martins',
-        office: 'Backend Developer',
-        photo: 'https://github.com/martinsdevv.png'
-    }
+    const user = getUser();
 
     return (
-        <header className='bg-main flex justify-around items-center py-4 h-20'>
+        <header className='bg-main flex justify-between items-center p-4 h-20'>
             <section className='text-white'>
                 <div className="lg:hidden">
                     <Menu size={35} onClick={toggleAside} />

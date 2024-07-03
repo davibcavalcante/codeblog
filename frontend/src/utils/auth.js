@@ -38,4 +38,14 @@ const register = async (e) => {
     }
 }
 
-export {login, register};
+const getUser = () => {
+    return {
+        name: 'Gabriel Martins',
+        office: 'Backend Developer',
+        photo: 'https://github.com/martinsdevv.png',
+        skills: ['HTML', 'CSS', 'JS', 'REACT', 'JAVA', 'PYTHON', 'TAILWIND'],
+        likes: ['HTML', 'CSS', 'JS', 'REACT', 'NODE', 'GIT', 'GITHUB']
+    }
+}
+
+export {login, register, getUser };

@@ -8,9 +8,14 @@ import Home from './pages/Home';
 import Login from './pages/Login'
 import Register from './pages/Register';
 import Profile from './pages/Profile';
+import ProfileResume from './components/Profile/ProfileResume';
+import ProfilePosts from './components/Profile/ProfilePosts';
+import ProfileRepositories from './components/Profile/ProfileRepositories';
+import ProfileSaved from './components/Profile/ProfileSaved';
+import ProfileLikes from './components/Profile/ProfileLikes';
 
-import App from './App';
 import Error from './pages/Error';
+import App from './App';
 
 const router = createBrowserRouter([
   {
@@ -32,7 +37,30 @@ const router = createBrowserRouter([
       },
       {
         path: 'profile',
-        element: <Profile/>
+        element: <Profile/>,
+        children: [
+          {
+            index: true,
+            element: <ProfileResume/>
+          },
+
+          {
+            path: 'posts',
+            element: <ProfilePosts/>
+          },
+          {
+            path: 'repositories',
+            element: <ProfileRepositories/>
+          },
+          {
+            path: 'saved',
+            element: <ProfileSaved/>
+          },
+          {
+            path: 'likes',
+            element: <ProfileLikes/>
+          }
+        ]
       },
     ],
   },

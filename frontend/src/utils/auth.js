@@ -11,9 +11,7 @@ const login = async (e) => {
     }
 
     try {
-        const results = await apiFetch.post('/auth/login', {
-            body: formData
-        });
+        const results = await apiFetch.post('/auth/login', formData);
         console.log(results)
     }  catch (err) {
         console.log(err);
@@ -33,10 +31,7 @@ const register = async (e) => {
     }
 
     try {
-        console.log(formData)
-        const results = await apiFetch.post('/auth/register', {
-            body: formData
-        });
+        const results = await apiFetch.post('/auth/register', formData);
         console.log(results);
     } catch (err) {
         console.log('Não foi possível registrar o usuário', err);

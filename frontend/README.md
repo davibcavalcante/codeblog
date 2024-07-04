@@ -12,3 +12,5 @@
 * /login
 * /register
 * /profile
+    * /
+    * /posts

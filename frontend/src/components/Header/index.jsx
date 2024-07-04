@@ -13,7 +13,7 @@ const Header = () => {
     const user = getUser();
 
     return (
-        <header className='bg-main flex justify-between items-center p-4 h-20'>
+        <header className='bg-main flex justify-between items-center p-4 h-20 xl:px-6'>
             <section className='text-white'>
                 <div className="lg:hidden">
                     <Menu size={35} onClick={toggleAside} />
@@ -23,7 +23,7 @@ const Header = () => {
                 </div>
             </section>
             <section className='sm: w-1/2'>
-                <input type="text" className='bg-transparent border-2 border-white rounded-lg px-2 py-1 w-full' placeholder='Digite o que você procura'/>
+                <input type="text" className='bg-transparent text-white border-2 border-white rounded-lg px-2 py-1 w-full' placeholder='Digite o que você procura'/>
             </section>
             <section>
                 { !isLoggedIn &&
@@ -35,7 +35,9 @@ const Header = () => {
 
                 {
                     isLoggedIn &&
-                    <img src={`${user.photo}`} alt={`Foto de perfil de ${user.name}`} className='w-8 rounded-full md:w-9' />
+                    <Link to={'/profile'}>
+                        <img src={`${user.photo}`} alt={`Foto de perfil de ${user.name}`} className='w-8 rounded-full md:w-9' />
+                    </Link>
                 }
             </section>
         </header>

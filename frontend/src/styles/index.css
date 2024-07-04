@@ -57,9 +57,16 @@
         height: calc(100vh - 80px);
     }
 
-    .tracking-in-expand-fwd {
-        -webkit-animation: tracking-in-expand-fwd 0.8s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
-                animation: tracking-in-expand-fwd 0.8s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
+    .min-h-aside {
+        min-height: calc(100vh - 80px);
+    }
+
+    .min-h-profile {
+        min-height: calc(100vh - 128px);
+    }
+
+    .h-profile {
+        height: calc(100vh - 128px);
     }
 
     .border-animation {
@@ -90,5 +97,10 @@
     .active {
         background-color: var(--main-color);
         top: -12px;
+    }
+
+    .tracking-in-expand-fwd {
+        -webkit-animation: tracking-in-expand-fwd 0.8s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
+                animation: tracking-in-expand-fwd 0.8s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
     }
 }

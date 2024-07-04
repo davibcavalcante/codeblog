@@ -60,7 +60,7 @@ const getUser = () => {
                 repostData: {}
             },
             {
-                main: 'aaaa',
+                main: '',
                 image: '',
                 repost: true,
                 repostData: {

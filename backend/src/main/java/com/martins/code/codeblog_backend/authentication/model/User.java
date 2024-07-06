@@ -1,42 +1,36 @@
 package com.martins.code.codeblog_backend.authentication.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
+import java.util.List;
+import java.util.UUID;
+
+@Builder
 @Entity
 @Table(name = "users")
-@Setter
-@NoArgsConstructor
+@Setter @Getter
+@NoArgsConstructor @AllArgsConstructor
 
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
     private String name;
     private String email;
     private String password;
     private String username;
+    private String office;
+    private String photoUrl;
+    private String bio;
 
-    public Long getId() {
-        return id;
-    }
+    /*@ElementCollection
+    private List<String> skills;
+    @ElementCollection
+    private List<String> likes;
+    @ElementCollection
+    private List<Post> posts;*/
 
-    public String getName() {
-        return name;
-    }
+    /*TODO: Criar entity Post e RepostData*/
 
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public String getUsername() {
-        return username;
-    }
 }

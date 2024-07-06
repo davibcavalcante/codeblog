@@ -22,8 +22,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
-import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
@@ -58,12 +56,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/auth/oauth2/github").permitAll()
                         .requestMatchers(HttpMethod.GET, "/user").permitAll()
                         .anyRequest().authenticated()
-                )
-                .oauth2Login(oauth2 -> oauth2
-                        .successHandler((authenticationSuccessHandler()))
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
@@ -77,29 +71,6 @@ public class SecurityConfig {
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
-    }
-
-    @Bean
-    public AuthenticationSuccessHandler authenticationSuccessHandler() {
-        return new SimpleUrlAuthenticationSuccessHandler() {
-            @Override
-            public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-                if(authentication instanceof OAuth2AuthenticationToken) {
-                    OAuth2User oAuthUser = ((OAuth2AuthenticationToken) authentication).getPrincipal();
-                    String email = oAuthUser.getAttribute("email");
-
-                    User user = userRepo.findByEmail(email)
-                            .orElseThrow(() -> new UsernameNotFoundException("User " + email + " not found"));
-
-                    String token = tokenService.createToken(user);
-
-                    response.addHeader("Authorization", "Bearer " + token);
-                }
-                else {
-                    super.onAuthenticationSuccess(request, response, authentication);
-                }
-            }
-        };
     }
 
 

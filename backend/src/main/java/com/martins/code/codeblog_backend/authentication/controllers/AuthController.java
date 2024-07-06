@@ -39,18 +39,20 @@ public class AuthController {
         Optional<User> user = this.userRepository.findByEmail(body.email());
         
         if(user.isEmpty()) {
-            System.out.println(body);
+
+            // Cria um novo usuário
             User newUser = new User();
             newUser.setPassword(passwordEncoder.encode(body.password()));
             newUser.setEmail(body.email());
             newUser.setName(body.name());
             newUser.setUsername(body.username());
+
             this.userRepository.save(newUser);
 
             String token = this.tokenService.createToken(newUser);
-            System.out.println(newUser.getUsername());
-            /* TODO: verificar quais parametros são esperados no frontend e criar record ResponseDTO(String)*/
+
             return ResponseEntity.ok(new ResponseDTO(newUser.getUsername(), token));
+
         }
         return ResponseEntity.badRequest().build();
     }

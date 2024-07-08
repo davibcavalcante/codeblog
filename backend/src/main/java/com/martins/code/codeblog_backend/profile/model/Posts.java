@@ -1,7 +1,11 @@
 package com.martins.code.codeblog_backend.profile.model;
 
+import com.martins.code.codeblog_backend.authentication.model.User;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.time.LocalDateTime;
 
 @Builder
 @Entity
@@ -13,10 +17,21 @@ public class Posts {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String title;
+
+    @Lob
+    @Column(columnDefinition = "TEXT")
     private String content;
+
     private String imageUrl;
     private boolean repost;
+
+    @CreationTimestamp
+    @Column(updatable = false)
+    private LocalDateTime createdAt;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
 }

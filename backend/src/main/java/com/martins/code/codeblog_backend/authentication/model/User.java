@@ -1,5 +1,6 @@
 package com.martins.code.codeblog_backend.authentication.model;
 
+import com.martins.code.codeblog_backend.profile.model.Posts;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -29,6 +30,7 @@ public class User {
     @ElementCollection
     private List<String> likes;
 
-    /*TODO: Criar entity Post e RepostData*/
+    @OneToMany(mappedBy = "user")
+    private List<Posts> posts;
 
 }

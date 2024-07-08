@@ -34,6 +34,8 @@ public class UserProfileService {
             existingUser.setOffice(user.getOffice());
             existingUser.setPhotoUrl(user.getPhotoUrl());
             existingUser.setBio(user.getBio());
+            existingUser.setSkills(user.getSkills());
+            existingUser.setLikes(user.getLikes());
 
             return repository.save(existingUser);
         }

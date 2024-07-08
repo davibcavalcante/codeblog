@@ -24,12 +24,10 @@ public class User {
     private String photoUrl;
     private String bio;
 
-    /*@ElementCollection
+    @ElementCollection
     private List<String> skills;
     @ElementCollection
     private List<String> likes;
-    @ElementCollection
-    private List<Post> posts;*/
 
     /*TODO: Criar entity Post e RepostData*/
 

@@ -1,8 +1,12 @@
-# Documentação da API de login/registro de usuários
+# Documentação CodeBlog API
+
+Esta documentação descreve os endpoints da API e como utilizá-los, os parâmetros esperados e as respectivas respostas. Abrange desde o cadastro/login de usuários, à criação de posts.
+
+## Autenticação
 
 ## Introdução
 
-Esta documentação descreve os endpoints da API e como utilizá-los, os parâmetros esperados e as respectivas respostas.
+Esta seção descreve todas as requisições a serem feitas para o consumo correto da seção de autenticação de usuários desta API.
 
 ## Endpoints
 
@@ -111,4 +115,104 @@ Resposta esperada:
 
 ``` bash
 Hello World
+```
+
+## Perfil de usuário
+
+#### Descrição
+Retorna um perfil de usuário contendo informações públicas do mesmo. Não retorna informações pessoais.
+
+### GET /api/profiles
+
+#### Descrição
+Retorna todos os perfis cadastrados no sistema.
+
+#### Repostas
+
+- "200 OK": Sucesso na requisição.
+- "403 forbiden": Usuário não fez login
+- "404 not found": URL incorreta. Revise se está utilizando a URL e os endpoints corretos.
+
+#### Exemplo de requisição
+
+```http
+http://localhost:8080
+Content-Type: application/json
+
+GET /api/profiles
+
+Corpo da requisição: Não há
+
+Resposta esperada:
+```
+
+``` json
+    {
+        "id": "99999999999999999999999999999",
+        "username": null,
+        "office": null,
+        "photoUrl": null,
+        "bio": null,
+        "skills": [],
+        "likes": []
+    },
+    {
+        "id": "666666666666666666666666666666",
+        "username": "martins",
+        "office": "backend developer",
+        "photoUrl": "https://avatars.githubusercontent.com/u/169475525?v=4",
+        "bio": "só um dev backend",
+        "skills": [
+            "java",
+            "spring",
+            "git"
+        ],
+        "likes": [
+            "linux",
+            "shellscript"
+        ]
+    },
+```
+
+### GET /api/profiles/{id}
+
+#### Descrição
+Retorna o perfil cadastrado a partir do ID fornecido como parâmetro.
+
+#### Repostas
+
+- "200 OK": Sucesso na requisição.
+- "403 forbiden": Usuário não fez login
+- "404 not found": URL incorreta. Revise se está utilizando a URL e os endpoints corretos.
+
+#### Exemplo de requisição
+
+```http
+http://localhost:8080
+Content-Type: application/json
+
+GET /api/profiles/696969696969
+
+Corpo da requisição: Não há
+
+Resposta esperada:
+```
+
+``` json
+    {
+        "id": "696969696969",
+        "username": "martins",
+        "office": "backend developer",
+        "photoUrl": "https://avatars.githubusercontent.com/u/169475525?v=4",
+        "bio": "só um dev backend",
+        "skills": [
+            "java",
+            "spring",
+            "git"
+        ],
+        "likes": [
+            "linux",
+            "shellscript"
+        ]
+    }
 ```

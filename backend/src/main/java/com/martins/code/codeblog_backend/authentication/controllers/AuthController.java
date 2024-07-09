@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
-@CrossOrigin(origins = "http://domain2.com", maxAge = 3600)
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
@@ -46,6 +45,11 @@ public class AuthController {
             newUser.setEmail(body.email());
             newUser.setName(body.name());
             newUser.setUsername(body.username());
+            newUser.setSkills(body.skills());
+            newUser.setPhotoUrl(body.photoUrl());
+            newUser.setBio(body.bio());
+            newUser.setOffice(body.office());
+            newUser.setLikes(body.likes());
 
             this.userRepository.save(newUser);
 

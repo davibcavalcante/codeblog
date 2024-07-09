@@ -1,5 +1,6 @@
 package com.martins.code.codeblog_backend.authentication.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.martins.code.codeblog_backend.profile.model.Posts;
 import jakarta.persistence.*;
 import lombok.*;
@@ -12,6 +13,7 @@ import java.util.UUID;
 @Table(name = "users")
 @Setter @Getter
 @NoArgsConstructor @AllArgsConstructor
+@JsonIgnoreProperties({"posts"})
 
 public class User {
     @Id

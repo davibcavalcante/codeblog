@@ -24,6 +24,9 @@ public class UserProfileController {
     @GetMapping("/{id}")
     public ResponseEntity<User> getProfileById(@PathVariable UUID id) {
         User user = userProfileService.getProfileById(id);
+        user.setName(null);
+        user.setEmail(null);
+        user.setPassword(null);
         return user != null ? ResponseEntity.ok(user) : ResponseEntity.notFound().build();
     }
 

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class PostsService {
@@ -19,6 +20,10 @@ public class PostsService {
 
     public Posts getPostById(Long id) {
         return postsRepository.findById(id).orElse(null);
+    }
+
+    public List<Posts> getPostsByUserId(UUID userId) {
+        return postsRepository.findByUserId(userId);
     }
 
     public Posts createPost(Posts posts) {

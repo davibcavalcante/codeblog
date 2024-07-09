@@ -28,7 +28,7 @@ public class AuthController {
         if(passwordEncoder.matches(body.password(), user.getPassword())) {
             String token = this.tokenService.createToken(user);
             /* TODO: verificar quais parametros são esperados no frontend e criar record ResponseDTO(String)*/
-            return ResponseEntity.ok(new ResponseDTO(user.getUsername(), token));
+            return ResponseEntity.ok(new ResponseDTO(user.getId(), token));
         }
         return ResponseEntity.badRequest().build();
     }
@@ -51,7 +51,7 @@ public class AuthController {
 
             String token = this.tokenService.createToken(newUser);
 
-            return ResponseEntity.ok(new ResponseDTO(newUser.getUsername(), token));
+            return ResponseEntity.ok(new ResponseDTO(newUser.getId(), token));
 
         }
         return ResponseEntity.badRequest().build();

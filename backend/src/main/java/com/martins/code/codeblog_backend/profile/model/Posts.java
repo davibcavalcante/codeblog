@@ -1,5 +1,6 @@
 package com.martins.code.codeblog_backend.profile.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.martins.code.codeblog_backend.authentication.model.User;
 import jakarta.persistence.*;
 import lombok.*;
@@ -19,7 +20,6 @@ public class Posts {
     private Long id;
     private String title;
 
-    @Lob
     @Column(columnDefinition = "TEXT")
     private String content;
 
@@ -32,6 +32,7 @@ public class Posts {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonBackReference
     private User user;
 
 }

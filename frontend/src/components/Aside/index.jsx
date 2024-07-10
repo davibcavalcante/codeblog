@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { BadgeHelp, Copyright, Home, Library, User } from 'lucide-react';
 
 import AsideContext from '../../utils/AsideContext';
@@ -8,6 +8,16 @@ import { getUser } from '../../utils/auth';
 const Aside = () => {
     const { isAsideOpen } = useContext(AsideContext);
 
+    useEffect(() => {
+        if (isAsideOpen) {
+            document.querySelector('body').style.overflow = 'hidden'
+        }
+
+        if (!isAsideOpen) {
+            document.querySelector('body').style.overflow = 'auto'
+        }
+    }, [isAsideOpen]);
+
     const user = getUser();
 
     const links = [
@@ -15,10 +25,10 @@ const Aside = () => {
         { path: '/profile', icon: <User />, text: 'Perfil' },
         { path: '/forum', icon: <BadgeHelp />, text: 'Fórum' },
         { path: '#', icon: <Library />, text: 'Repositório' },
-    ]
+    ];
 
     return (
-        <aside className={`bg-main w-10/12 h-aside py-8 duration-500 flex flex-col gap-8 absolute lg:top-20 lg:left-0 md:w-4/12 lg:w-3/12 2xl:w-2/12 ${isAsideOpen ? 'left-0' : '-left-full'} z-50`}>
+        <aside className={`bg-main w-10/12 min-h-aside py-8 duration-500 flex flex-col gap-8 absolute lg:top-20 lg:left-0 md:w-4/12 lg:w-3/12 2xl:w-2/12 ${isAsideOpen ? 'left-0' : '-left-full'} z-50`}>
             <nav>
                 <ul>
                     {links.map(item =>

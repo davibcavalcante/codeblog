@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 const ProfileNav = ({ pathname }) => {
     return (
-        <nav className='bg-black w-full relative lg:absolute lg:w-9/12 lg:right-0 2xl:w-10/12 z-50'>
+        <nav className='bg-black w-full relative lg:absolute lg:w-9/12 lg:right-0 2xl:w-10/12'>
             <ul className='flex items-center gap-3 pt-4 pb-2 px-2 overflow-x-auto xl:px-6 xl:gap-8 2xl:justify-center'>
                 <li>
                     <Link to={'/profile'} className={`text-sm font-poppins ${ pathname === '/profile' ? 'text-light' : 'text-white' } md:text-base lg:text-lg`}>PERFIL</Link>

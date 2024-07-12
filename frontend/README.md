@@ -27,7 +27,7 @@
         office: typeof STRING,
         photo_url: '' (Enviar vazio até configurações posteriores),
         skills: typeof ARRAY DE STRINGS,
-        likes: typeofARRAY DE STRINGS
+        likes: typeof ARRAY DE STRINGS
     }
     ```
 * /auth/login => body:

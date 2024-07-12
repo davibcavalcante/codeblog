@@ -17,7 +17,7 @@
 
 ## REQUISIÇÕES DESENVOLVIDAS ATÉ **12/07**
 * /auth/register => body: 
-    {
+    ```{
         name: ***STRING***,
         username: ***STRING***,
         email: ***STRING***,
@@ -27,9 +27,9 @@
         photo_url: '' (Enviar vazio até configurações posteriores),
         skills: ***ARRAY DE STRINGS***,
         likes: ***ARRAY DE STRINGS***
-    }
+    }```
 * /auth/login => body:
-    {
+    ```{
         email: ***STRING***,
         password: ***STRING***
-    }
+    }```

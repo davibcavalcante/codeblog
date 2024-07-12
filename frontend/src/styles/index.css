@@ -5,41 +5,46 @@
 @tailwind utilities;
 
 :root {
+    --black: #0C0C0C;
     --main-color: #1B123F;
     --light-color: #8B3BC0;
 }
 
 @-webkit-keyframes tracking-in-expand-fwd {
     0% {
-    letter-spacing: -0.5em;
-    -webkit-transform: translateZ(-700px);
-            transform: translateZ(-700px);
-    opacity: 0;
+        letter-spacing: -0.5em;
+        -webkit-transform: translateZ(-700px);
+        transform: translateZ(-700px);
+        opacity: 0;
     }
+
     40% {
-    opacity: 0.6;
+        opacity: 0.6;
     }
+
     100% {
-    -webkit-transform: translateZ(0);
-            transform: translateZ(0);
-    opacity: 1;
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+        opacity: 1;
     }
 }
 
 @keyframes tracking-in-expand-fwd {
     0% {
-    letter-spacing: -0.5em;
-    -webkit-transform: translateZ(-700px);
-            transform: translateZ(-700px);
-    opacity: 0;
+        letter-spacing: -0.5em;
+        -webkit-transform: translateZ(-700px);
+        transform: translateZ(-700px);
+        opacity: 0;
     }
+
     40% {
-    opacity: 0.6;
+        opacity: 0.6;
     }
+
     100% {
-    -webkit-transform: translateZ(0);
-            transform: translateZ(0);
-    opacity: 1;
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+        opacity: 1;
     }
 }
 
@@ -47,13 +52,16 @@
     from {
         transform: rotate(0deg);
     }
+
     to {
         transform: rotate(360deg);
     }
 }
 
-@layer utilities {  
-    .h-login, .h-aside {
+@layer utilities {
+
+    .h-login,
+    .h-aside {
         height: calc(100vh - 80px);
     }
 
@@ -101,6 +109,25 @@
 
     .tracking-in-expand-fwd {
         -webkit-animation: tracking-in-expand-fwd 0.8s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
-                animation: tracking-in-expand-fwd 0.8s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
+        animation: tracking-in-expand-fwd 0.8s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
     }
+
+    .translate-register {
+        transform: translate(calc(-100% - 16px));
+    }
+
+    .scrollbar-w-2::-webkit-scrollbar {
+        width: 2px;
+    }
+
+    .scrollbar-track-black::-webkit-scrollbar-track {
+        background-color: var(--black);
+    }
+
+    /* Thumb da scrollbar */
+    .scrollbar-thumb-gray::-webkit-scrollbar-thumb {
+        background-color: #cbd5e0;
+        border-radius: 4px;
+    }
+
 }

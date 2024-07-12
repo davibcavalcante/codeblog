@@ -1,6 +1,6 @@
-const LoginRegisterButton = ({ children, className }) => {
+const LoginRegisterButton = ({ children, className, type, funct }) => {
     return (
-        <button className={className}>{children}</button>
+        <button className={className} onClick={funct} type={type} >{children}</button>
     );
 }
 

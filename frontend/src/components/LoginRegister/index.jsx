@@ -1,26 +1,68 @@
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+
 import { login, register } from '../../utils/auth';
 import { focusIn, focusOut } from '../../utils/inputAnimate';
 
-import { Link } from 'react-router-dom';
-
 import LoginRegisterInput from "./LoginRegisterInput";
 import LoginRegisterButton from "./LoginRegisterButton";
+import DataList from './DataList';
+
+import { genericTags, officeTags } from '../../utils/tags';
 
 import { FaWhatsapp } from 'react-icons/fa'
-import { Github, Twitter, Youtube, Instagram } from 'lucide-react';
+import { Github, Twitter, Youtube, Instagram, ArrowRight, ArrowLeft } from 'lucide-react';
 
 const LoginRegister = ({ action }) => {
+    const [officeSelected, setOfficeSelected] = useState('selecione');
+    const [skillsSelected, setSkillsSelected] = useState([]);
+    const [likesSelected, setLikesSelected] = useState([]);
+    const [lastStep, setLastStep] = useState(false);
+
+    const setButtonMode = () => {
+        setLastStep(!lastStep);
+    }
+
+    const sendLoginData = (e) => {
+        e.preventDefault();
+
+        const formData = {
+            email: e.target.email.value,
+            password: e.target.password.value
+        };
+
+        login(formData);
+    }
+
+    const sendRegisterData = (e) => {
+        e.preventDefault();
+
+        const formData = {
+            name: e.target.name.value,
+            username: e.target.nickname.value,
+            email: e.target.email.value,
+            password: e.target.password.value,
+            bio: e.target.bio.value,
+            office: officeSelected,
+            photo_url: '',
+            skills: skillsSelected.map(item => item.value),
+            likes: likesSelected.map(item => item.value)
+        }
+
+        register(formData);
+    }
+
     return (
         <section className="bg-black min-h-screen md:flex md:items-center md:justify-center">
             <section className="lg:flex lg:justify-evenly lg:items-baseline lg:w-full">
-                <section className="bg-main h-screen p-4 flex flex-col justify-center items-center md:w-96 md:h-login md:relative md:border-animation md:rounded-xl lg:w-2/6">
-                    <section className="flex flex-col gap-12 w-full max-w-96 z-50">
+                <section className="bg-main h-screen p-4 flex flex-col items-center md:w-96 md:h-login md:relative md:border-animation md:rounded-xl lg:w-2/6 lg:pt-20">
+                    <section className="flex flex-col gap-12 w-full h-full max-w-96 z-50">
                         <h1 className="text-white text-5xl text-center font-poppins xl:text-7xl">
                             {action === 'login' ? 'Sign-in' : 'Sign-up'}
                         </h1>
-                        <form autoComplete="on" className="w-full flex flex-col gap-12" onFocus={focusIn} onBlur={focusOut} onSubmit={action === 'login' ? login : register}>
-                            <section className="flex flex-col gap-2">
-                                <section className="flex flex-col gap-4">
+                        <form autoComplete="on" className="w-full flex flex-col gap-12 m-auto overflow-x-hidden scrollbar-w-2 scrollbar-track-black scrollbar-thumb-gray" onFocus={focusIn} onBlur={focusOut} onSubmit={action === 'login' ? sendLoginData : sendRegisterData}>
+                            <section className={`flex ${action === 'login' ? 'flex-col' : ''} gap-2 ${lastStep ? 'translate-register' : ''} duration-300`}>
+                                <section className="flex flex-col gap-4 min-w-full">
                                     {action === 'register' &&
                                         <LoginRegisterInput type={'text'} placeholder={'Nome'} name={'name'} />
                                     }
@@ -31,18 +73,38 @@ const LoginRegister = ({ action }) => {
                                     <LoginRegisterInput type={'password'} placeholder={'Senha'} name={'password'} />
                                 </section>
                                 <section className="flex justify-end">
-                                    {action === 'login' && <Link to="#" className="text-white text-sm font-poppins underline">Esqueci minha senha</Link>}
+                                    {action === 'login' &&
+                                        <Link to="#" className="text-white text-sm font-poppins underline">Esqueci minha senha</Link>
+                                    }
                                 </section>
+                                {action === 'register' && lastStep &&
+                                    <section className='flex flex-col gap-4 min-w-full'>
+                                        <textarea name="bio" className='bg-transparent text-white border-2 border-white rounded-xl w-full min-h-32 py-2 px-4 outline-none' placeholder='Digite sua biografia'></textarea>
+                                        <DataList saveOptions={setOfficeSelected} optionsTags={officeTags} placeholder={'Cargo:'} type="single" />
+                                        <DataList saveOptions={setSkillsSelected} optionsTags={genericTags} placeholder={'Habilidades:'} type="multi" />
+                                        <DataList saveOptions={setLikesSelected} optionsTags={genericTags} placeholder={'Interesses:'} type="multi" />
+                                    </section>
+                                }
                             </section>
                             <section className="flex flex-col items-center gap-4">
-                                {action === 'login' ?
-                                    <LoginRegisterButton className={'bg-white text-xl font-poppins w-full h-12 xl:hover:bg-black xl:hover:text-white xl:duration-300'}>
+                                {action === 'login' &&
+                                    <LoginRegisterButton className={'bg-white text-xl font-poppins w-full h-12 xl:hover:bg-black xl:hover:text-white xl:duration-300'} type={'submit'}>
                                         Entrar
-                                    </LoginRegisterButton> :
-                                    <LoginRegisterButton className={'bg-white text-xl font-poppins w-full h-12 xl:hover:bg-black xl:hover:text-white xl:duration-300'}>
-                                        Sign-up
                                     </LoginRegisterButton>
                                 }
+
+                                {action === 'register' &&
+                                    <LoginRegisterButton className={`bg-white text-xl font-poppins h-12 aspect-square rounded-full flex items-center justify-center xl:hover:bg-black xl:hover:text-white xl:duration-300`} type='button' funct={setButtonMode}>
+                                        {lastStep ? <ArrowLeft /> : <ArrowRight />}
+                                    </LoginRegisterButton>
+                                }
+
+                                {action === 'register' && lastStep &&
+                                    <LoginRegisterButton className={`bg-white text-xl font-poppins w-full rounded-sm h-12 aspect-square flex items-center justify-center xl:hover:bg-black xl:hover:text-white xl:duration-300`} type='submit'>
+                                        Sign-Up
+                                    </LoginRegisterButton>
+                                }
+
                                 {action === 'login' &&
                                     <LoginRegisterButton className={'bg-black text-white text-xl font-poppins w-full h-12 flex items-center justify-center gap-4 xl:hover:bg-white xl:hover:text-black xl:duration-300'}>
                                         <Github /> Entrar com Github
@@ -71,10 +133,10 @@ const LoginRegister = ({ action }) => {
                         Fique de olho em nossas redes sociais!
                     </p>
                     <section className="text-white flex justify-center gap-4">
-                        <Link to={'#'}> <Instagram size={30}/> </Link>
-                        <Link to={'#'}> <Twitter size={30}/> </Link>
-                        <Link to={'#'}> <Youtube size={30}/> </Link>
-                        <Link to={'#'}> <FaWhatsapp size={30}/> </Link>
+                        <Link to={'#'}> <Instagram size={30} /> </Link>
+                        <Link to={'#'}> <Twitter size={30} /> </Link>
+                        <Link to={'#'}> <Youtube size={30} /> </Link>
+                        <Link to={'#'}> <FaWhatsapp size={30} /> </Link>
                     </section>
                 </section>
             </section>

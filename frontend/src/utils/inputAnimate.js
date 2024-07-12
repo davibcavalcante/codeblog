@@ -1,8 +1,8 @@
 const focusIn = (e) => {
+    if (e.target.localName !== 'input' || e.target.role === 'combobox') return;
+
     const inFocus = e.target;
     const toAnimate = e.target.nextElementSibling;
-
-    if (inFocus.localName !== 'input') return;
 
     if (inFocus.value.length === 0 && !toAnimate.classList.contains('active')) {
         toAnimate.classList.add('active');
@@ -10,10 +10,10 @@ const focusIn = (e) => {
 }
 
 const focusOut = (e) => {
+    if (e.target.localName !== 'input' || e.target.role === 'combobox') return;
+
     const inBlur = e.target;
     const toReturn = e.target.nextElementSibling;
-
-    if (inBlur.localName !== 'input') return;
 
     if (inBlur.value.length === 0 && toReturn.classList.contains('active') && inBlur !== undefined) {
         toReturn.classList.remove('active');

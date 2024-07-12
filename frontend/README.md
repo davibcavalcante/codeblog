@@ -17,19 +17,23 @@
 
 ## REQUISIÇÕES DESENVOLVIDAS ATÉ **12/07**
 * /auth/register => body: 
-    ```{
-        name: ***STRING***,
-        username: ***STRING***,
-        email: ***STRING***,
-        password: ***STRING***,
-        bio: ***STRING***,
-        office: ***STRING***,
+    ```
+    {
+        name: typeof STRING,
+        username: typeof STRING,
+        email: typeof STRING,
+        password: typeof STRING,
+        bio: typeof STRING,
+        office: typeof STRING,
         photo_url: '' (Enviar vazio até configurações posteriores),
-        skills: ***ARRAY DE STRINGS***,
-        likes: ***ARRAY DE STRINGS***
-    }```
+        skills: typeof ARRAY DE STRINGS,
+        likes: typeofARRAY DE STRINGS
+    }
+    ```
 * /auth/login => body:
-    ```{
-        email: ***STRING***,
-        password: ***STRING***
-    }```
+    ```
+    {
+        email: typeof STRING,
+        password: typeof STRING
+    }
+    ```

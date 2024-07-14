@@ -1,15 +1,37 @@
+import { useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { BadgeHelp, Home, Library, User } from 'lucide-react';
 
-const AsideNav = ({ path, icon = '', text}) => {
+import AsideContext from '../../utils/AsideContext';
+
+const AsideNav = () => {
+    const { isAsideOpen } = useContext(AsideContext);
+
+    useEffect(() => {
+        if (isAsideOpen) {
+            document.querySelector('body').style.overflow = 'hidden'
+        }
+
+        if (!isAsideOpen) {
+            document.querySelector('body').style.overflow = 'auto'
+        }
+    }, [isAsideOpen]);
+
+    const links = [
+        { path: '/', icon: <Home />, text: 'Página Inicial' },
+        { path: '/profile', icon: <User />, text: 'Perfil' },
+        { path: '/forum', icon: <BadgeHelp />, text: 'Fórum' },
+        { path: '#', icon: <Library />, text: 'Repositório' },
+    ];
+
     return (
-        <section>
-            <li className='pb-4 px-4 lg:px-6'>
-                <Link to={path} className='text-white font-poppins flex items-center gap-2'>
-                    {icon}{text}
-                </Link>
-            </li>
-            <div className='bg-white w-full h-0.5 mb-4'></div>
-        </section>
+        <ul>
+            {links.map(item =>
+                <li className='p-4 lg:px-6 border-b-2 border-white' key={item.text}>
+                    <Link to={item.path} className='text-white flex items-center gap-4'>{item.icon} {item.text}</Link>
+                </li>
+            )}
+        </ul>
     );
 }
 

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { login, register } from '../../utils/auth';
 import { focusIn, focusOut } from '../../utils/inputAnimate';
@@ -14,6 +14,8 @@ import { FaWhatsapp } from 'react-icons/fa'
 import { Github, Twitter, Youtube, Instagram, ArrowRight, ArrowLeft } from 'lucide-react';
 
 const LoginRegister = ({ action }) => {
+    const navigate = useNavigate();
+
     const [officeSelected, setOfficeSelected] = useState('selecione');
     const [skillsSelected, setSkillsSelected] = useState([]);
     const [likesSelected, setLikesSelected] = useState([]);
@@ -31,7 +33,8 @@ const LoginRegister = ({ action }) => {
             password: e.target.password.value
         };
 
-        login(formData);
+        const isLoggedIn = login(formData);
+        if (isLoggedIn) navigate('/profile');
     }
 
     const sendRegisterData = (e) => {
@@ -49,7 +52,8 @@ const LoginRegister = ({ action }) => {
             likes: likesSelected.map(item => item.value)
         }
 
-        register(formData);
+        const isRegistered = register(formData);
+        if (isRegistered) navigate('/profile');
     }
 
     return (

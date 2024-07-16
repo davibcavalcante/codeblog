@@ -35,8 +35,8 @@ public class PostsController {
         return posts != null ? ResponseEntity.ok(PostDTO.fromEntity(posts)) : ResponseEntity.notFound().build();
     }
 
-    @GetMapping("/{user_id}/posts")
-    public ResponseEntity<List<PostDTO>> getPostsByUserId(@PathVariable("user_id") UUID userId) {
+    @GetMapping("/{userId}/posts")
+    public ResponseEntity<List<PostDTO>> getPostsByUserId(@PathVariable("userId") UUID userId) {
         List<Posts> userPosts = postsService.getPostsByUserId(userId);
         List<PostDTO> postDTO = userPosts.stream()
                 .map(PostDTO::fromEntity)
@@ -44,8 +44,8 @@ public class PostsController {
         return ResponseEntity.ok(postDTO);
     }
 
-    @PostMapping("/{user_id}/create")
-    public ResponseEntity<PostDTO> createPost(@PathVariable("user_id") UUID userId, @RequestBody Posts posts) {
+    @PostMapping("/{userId}/create")
+    public ResponseEntity<PostDTO> createPost(@PathVariable("userId") UUID userId, @RequestBody Posts posts) {
         User user = userProfileService.getProfileById(userId);
         System.out.println(userId);
         if (user == null) {

@@ -61,11 +61,13 @@
 @layer utilities {
 
     .h-login,
-    .h-aside {
+    .h-aside,
+    .h-home {
         height: calc(100vh - 80px);
     }
 
-    .min-h-aside {
+    .min-h-aside,
+    .min-h-home {
         min-height: calc(100vh - 80px);
     }
 

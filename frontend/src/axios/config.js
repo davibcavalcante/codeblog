@@ -1,10 +1,16 @@
 import axios from 'axios';
 
-const apiFetch = axios.create({
+export const freeApiFetch = axios.create({
     baseURL: 'http://localhost:8080',
     headers: {
         "Content-Type": "application/json; charset=UTF-8",
     }
 });
 
-export default apiFetch
+export const authApiFetch = axios.create({
+    baseURL: 'http://localhost:8080',
+    headers: {
+        "Content-Type": "application/json; charset=UTF-8",
+        "Authorization": JSON.parse(localStorage.getItem('auth_token'))
+    }
+});

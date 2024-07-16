@@ -20,7 +20,7 @@ const useFetchUser = () => {
         };
 
         fetchUser();
-    }, [user]);
+    }, []);
 
     return { user, error, loading };
 };

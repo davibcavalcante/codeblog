@@ -1,11 +1,11 @@
-import apiFetch from "../axios/config";
+import { freeApiFetch, authApiFetch } from "../axios/config";
 
 const login = async (formData) => {
     try {
-        const results = await apiFetch.post('/auth/login', formData);
+        const results = await freeApiFetch.post('/auth/login', formData);
 
         const token = await results.data.token;
-        const userId = await results.data.user_id
+        const userId = await results.data.userId
 
         localStorage.setItem('auth_token', JSON.stringify(token));
         localStorage.setItem('user_id', JSON.stringify(userId));
@@ -19,10 +19,10 @@ const login = async (formData) => {
 
 const register = async (formData) => {
     try {
-        const results = await apiFetch.post('/auth/register', formData);
+        const results = await freeApiFetch.post('/auth/register', formData);
 
         const token = await results.data.token;
-        const userId = await results.data.user_id
+        const userId = await results.data.userId
 
         localStorage.setItem('auth_token', JSON.stringify(token));
         localStorage.setItem('user_id', JSON.stringify(userId));
@@ -36,15 +36,8 @@ const register = async (formData) => {
 
 const getUser = async () => {
     try {
-        const token = JSON.parse(localStorage.getItem('auth_token'));
         const userId = JSON.parse(localStorage.getItem('user_id'));
-
-        const results = await apiFetch.get(`/api/profiles/${userId}`, {
-            headers: {
-                "Authorization": `Bearer ${token}`
-            }
-        });
-
+        const results = await authApiFetch.get(`/api/profiles/${userId}`);
         return results.data;
     } catch (err) {
         console.log(err)

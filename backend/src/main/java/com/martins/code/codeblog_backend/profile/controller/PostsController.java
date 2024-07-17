@@ -1,6 +1,7 @@
 package com.martins.code.codeblog_backend.profile.controller;
 
 import com.martins.code.codeblog_backend.authentication.model.User;
+import com.martins.code.codeblog_backend.image.service.ImageService;
 import com.martins.code.codeblog_backend.profile.dto.PostDTO;
 import com.martins.code.codeblog_backend.profile.model.Posts;
 import com.martins.code.codeblog_backend.profile.service.PostsService;
@@ -8,6 +9,7 @@ import com.martins.code.codeblog_backend.profile.service.UserProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.UUID;
@@ -21,6 +23,8 @@ public class PostsController {
     private PostsService postsService;
     @Autowired
     private UserProfileService userProfileService;
+    @Autowired
+    private ImageService imageService;
 
     @GetMapping
     public List<PostDTO> getALlPosts() {
@@ -47,7 +51,6 @@ public class PostsController {
     @PostMapping("/{userId}/create")
     public ResponseEntity<PostDTO> createPost(@PathVariable("userId") UUID userId, @RequestBody Posts posts) {
         User user = userProfileService.getProfileById(userId);
-        System.out.println(userId);
         if (user == null) {
             return ResponseEntity.notFound().build();
         }
@@ -55,6 +58,15 @@ public class PostsController {
         Posts createPost = postsService.createPost(posts);
         return createPost != null ? ResponseEntity.ok(PostDTO.fromEntity(createPost)) : ResponseEntity.notFound().build();
     }
+
+    /*@PostMapping("/{id}/image")
+    public ResponseEntity<PostDTO> uploadImage(@PathVariable("id") UUID id, @RequestParam("image") MultipartFile image) throws Exception {
+        User user = userProfileService.getProfileById(id);
+        return imageService.upload(image)
+                .flatMap(imageUrl -> {
+                    postsService.updatePost()
+                })
+    }*/
 
     @PutMapping("/{id}")
     public ResponseEntity<PostDTO> updatePost(@PathVariable("id") Long id, @RequestBody Posts posts) {

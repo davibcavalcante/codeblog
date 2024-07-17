@@ -1,5 +1,7 @@
 package com.martins.code.codeblog_backend.profile.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.martins.code.codeblog_backend.authentication.model.User;
 import com.martins.code.codeblog_backend.image.service.ImageService;
 import com.martins.code.codeblog_backend.profile.dto.PostDTO;
@@ -7,10 +9,13 @@ import com.martins.code.codeblog_backend.profile.model.Posts;
 import com.martins.code.codeblog_backend.profile.service.PostsService;
 import com.martins.code.codeblog_backend.profile.service.UserProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -39,7 +44,7 @@ public class PostsController {
         return posts != null ? ResponseEntity.ok(PostDTO.fromEntity(posts)) : ResponseEntity.notFound().build();
     }
 
-    @GetMapping("/{userId}/posts")
+    @GetMapping("/user/{userId}")
     public ResponseEntity<List<PostDTO>> getPostsByUserId(@PathVariable("userId") UUID userId) {
         List<Posts> userPosts = postsService.getPostsByUserId(userId);
         List<PostDTO> postDTO = userPosts.stream()
@@ -48,25 +53,34 @@ public class PostsController {
         return ResponseEntity.ok(postDTO);
     }
 
-    @PostMapping("/{userId}/create")
-    public ResponseEntity<PostDTO> createPost(@PathVariable("userId") UUID userId, @RequestBody Posts posts) {
+    @PostMapping("/{userId}")
+    public ResponseEntity<PostDTO> createPost(@PathVariable("userId") UUID userId, @RequestParam("post") String postJson, @RequestPart("photoUrl") MultipartFile[] images) throws JsonProcessingException {
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        Posts posts = objectMapper.readValue(postJson, Posts.class);
+
         User user = userProfileService.getProfileById(userId);
         if (user == null) {
             return ResponseEntity.notFound().build();
         }
         posts.setUser(user);
+
+        List<String> photoUrls = new ArrayList<>();
+        for (MultipartFile image : images) {
+            try {
+                String photoUrl = imageService.uploadImageToImgur(image);
+                photoUrls.add(photoUrl);
+            } catch (IOException e) {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+            }
+        }
+        posts.setPhotoUrl(photoUrls);
+
         Posts createPost = postsService.createPost(posts);
         return createPost != null ? ResponseEntity.ok(PostDTO.fromEntity(createPost)) : ResponseEntity.notFound().build();
+
     }
 
-    /*@PostMapping("/{id}/image")
-    public ResponseEntity<PostDTO> uploadImage(@PathVariable("id") UUID id, @RequestParam("image") MultipartFile image) throws Exception {
-        User user = userProfileService.getProfileById(id);
-        return imageService.upload(image)
-                .flatMap(imageUrl -> {
-                    postsService.updatePost()
-                })
-    }*/
 
     @PutMapping("/{id}")
     public ResponseEntity<PostDTO> updatePost(@PathVariable("id") Long id, @RequestBody Posts posts) {

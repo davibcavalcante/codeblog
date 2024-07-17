@@ -7,6 +7,8 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Builder
 @Entity
@@ -23,7 +25,11 @@ public class Posts {
     @Column(columnDefinition = "TEXT")
     private String content;
 
-    private String imageUrl;
+    @ElementCollection
+    @CollectionTable(name = "post_images", joinColumns = @JoinColumn(name = "post_id"))
+    @Column(name = "image_url")
+    private List<String> photoUrl = new ArrayList<>();
+
     private boolean repost;
 
     @CreationTimestamp

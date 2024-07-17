@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -15,7 +17,7 @@ public class PostDTO {
     private Long id;
     private String title;
     private String content;
-    private String imageUrl;
+    private List<String> photoUrl;
     private boolean repost;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
@@ -28,7 +30,7 @@ public class PostDTO {
                 posts.getId(),
                 posts.getTitle(),
                 posts.getContent(),
-                posts.getImageUrl(),
+                posts.getPhotoUrl(),
                 posts.isRepost(),
                 posts.getCreatedAt(),
                 posts.getUser() != null ? posts.getUser().getId() : null

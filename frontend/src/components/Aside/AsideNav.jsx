@@ -2,7 +2,7 @@ import { useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { BadgeHelp, Home, Library, User } from 'lucide-react';
 
-import AsideContext from '../../utils/AsideContext';
+import AsideContext from '../../contexts/AsideContext';
 
 const AsideNav = () => {
     const { isAsideOpen } = useContext(AsideContext);

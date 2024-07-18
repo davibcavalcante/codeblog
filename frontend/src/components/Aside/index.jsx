@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { Copyright } from 'lucide-react';
 import { capitalizeText } from '../../utils/capitalizeText';
 
-import AsideContext from '../../utils/AsideContext';
+import AsideContext from '../../contexts/AsideContext';
 import AsideNav from './AsideNav';
 import useFetchUser from '../../hooks/useFetchUser';
 

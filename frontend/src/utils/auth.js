@@ -1,6 +1,6 @@
-import { freeApiFetch, authApiFetch } from "../axios/config";
+import { freeApiFetch } from "../axios/config";
 
-const login = async (formData) => {
+export const login = async (formData) => {
     try {
         const results = await freeApiFetch.post('/auth/login', formData);
 
@@ -17,7 +17,7 @@ const login = async (formData) => {
     }
 }
 
-const register = async (formData) => {
+export const register = async (formData) => {
     try {
         const results = await freeApiFetch.post('/auth/register', formData);
 
@@ -32,16 +32,4 @@ const register = async (formData) => {
         console.log('Não foi possível registrar o usuário', err);
         return false
     }
-}
-
-const getUser = async () => {
-    try {
-        const userId = JSON.parse(localStorage.getItem('user_id'));
-        const results = await authApiFetch.get(`/api/profiles/${userId}`);
-        return results.data;
-    } catch (err) {
-        console.log(err)
-    }
-}
-
-export { login, register, getUser };
+};

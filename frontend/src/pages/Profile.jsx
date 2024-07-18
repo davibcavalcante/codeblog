@@ -1,5 +1,7 @@
 import { Outlet, useLocation } from 'react-router-dom';
-import { AsideProvider } from "../utils/AsideContext";
+import { AsideProvider } from "../contexts/AsideContext";
+import { UserProvider } from '../contexts/UserContext';
+
 import Header from "../components/Header";
 import Aside from "../components/Aside";
 import NavProfile from "../components/Profile/ProfileNav";
@@ -9,10 +11,12 @@ const Profile = () => {
 
     return (
         <AsideProvider>
-            <Header />
-            <Aside />
-            <NavProfile pathname={location.pathname}/>
-            <Outlet />
+            <UserProvider>
+                <Header />
+                <Aside />
+                <NavProfile pathname={location.pathname} />
+                <Outlet />
+            </UserProvider>
         </AsideProvider>
     );
 }

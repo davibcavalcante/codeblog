@@ -1,5 +1,5 @@
 import { authApiFetch } from "../axios/config";
-import { getUser } from "./auth";
+import { getUser } from "./user";
 
 export const sendPost = async (e) => {
     e.preventDefault();
@@ -9,19 +9,23 @@ export const sendPost = async (e) => {
     const formData = {
         title: e.target.title.value,
         content: e.target.content.value,
-        imageUrl: 'https://github.com/davibcavalcante.png'
+        imageUrl: e.target.image.files[0]
     };
 
-    const results = await authApiFetch.post(`/api/post/${userId}/create`, formData);
+    const results = await authApiFetch.post(`/api/post/${userId}`, formData);
     console.log(results.data);
 }
 
 export const getUserPosts = async () => {
     const userId = JSON.parse(localStorage.getItem('user_id'));
 
-    const userData = await getUser();
-    const postsResults = await authApiFetch.get(`/api/post/${userId}/posts`)
-    const postsData = await postsResults.data
+    try {
+        const userData = await getUser();
+        const postsResults = await authApiFetch.get(`/api/post/user/${userId}`);
+        const postsData = await postsResults.data;
 
-    return {userData, postsData}
+        return { postsData, userData };
+    } catch (err) {
+        console.log("err")
+    }
 }

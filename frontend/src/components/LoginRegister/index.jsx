@@ -25,7 +25,7 @@ const LoginRegister = ({ action }) => {
         setLastStep(!lastStep);
     }
 
-    const sendLoginData = (e) => {
+    const sendLoginData = async (e) => {
         e.preventDefault();
 
         const formData = {
@@ -33,11 +33,11 @@ const LoginRegister = ({ action }) => {
             password: e.target.password.value
         };
 
-        const isLoggedIn = login(formData);
+        const isLoggedIn = await login(formData);
         if (isLoggedIn) navigate('/profile');
     }
 
-    const sendRegisterData = (e) => {
+    const sendRegisterData = async (e) => {
         e.preventDefault();
 
         const formData = {
@@ -52,7 +52,7 @@ const LoginRegister = ({ action }) => {
             likes: likesSelected.map(item => item.value)
         }
 
-        const isRegistered = register(formData);
+        const isRegistered = await register(formData);
         if (isRegistered) navigate('/profile');
     }
 

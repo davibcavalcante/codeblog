@@ -1,8 +1,10 @@
-import useFetchUserPosts from "../../hooks/useFetchUserPosts";
+import { useContext } from "react";
 import { capitalizeText } from "../../utils/capitalizeText";
 
+import UserContext from "../../contexts/UserContext";
+
 const ProfilePosts = () => {
-    const { user, posts, error, loading } = useFetchUserPosts();
+    const { user, error, loading, refetchUser } = useContext(UserContext);
 
     if (loading) {
         return <div>Loading...</div>;

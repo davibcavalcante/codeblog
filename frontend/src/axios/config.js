@@ -14,3 +14,11 @@ export const authApiFetch = axios.create({
         "Authorization": JSON.parse(localStorage.getItem('auth_token'))
     }
 });
+
+export const authApiImage = axios.create({
+    baseURL: 'http://localhost:8080',
+    headers: {
+        "Content-Type": "multipart/form-data",
+        "Authorization": JSON.parse(localStorage.getItem('auth_token'))
+    }
+});

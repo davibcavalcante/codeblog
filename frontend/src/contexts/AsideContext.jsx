@@ -9,11 +9,11 @@ export const AsideProvider = ({ children }) => {
     setIsAsideOpen(!isAsideOpen);
   };
 
-  return React.createElement(
-    AsideContext.Provider,
-    { value: { isAsideOpen, toggleAside } },
-    children
-  );  
+  return (
+    <AsideContext.Provider value={{ isAsideOpen, toggleAside }}>
+      {children}
+    </AsideContext.Provider>
+  );
 };
 
 export default AsideContext;

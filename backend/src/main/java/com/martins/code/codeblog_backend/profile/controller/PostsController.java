@@ -3,11 +3,14 @@ package com.martins.code.codeblog_backend.profile.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.martins.code.codeblog_backend.authentication.model.User;
+import com.martins.code.codeblog_backend.exceptions.custom.InvalidIdException;
+import com.martins.code.codeblog_backend.exceptions.custom.MissingParameterException;
 import com.martins.code.codeblog_backend.image.service.ImageService;
 import com.martins.code.codeblog_backend.profile.dto.PostDTO;
 import com.martins.code.codeblog_backend.profile.model.Posts;
 import com.martins.code.codeblog_backend.profile.service.PostsService;
 import com.martins.code.codeblog_backend.profile.service.UserProfileService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -56,12 +59,16 @@ public class PostsController {
     @PostMapping("/{userId}")
     public ResponseEntity<PostDTO> createPost(@PathVariable("userId") UUID userId, @RequestParam("post") String postJson, @RequestPart("photoUrl") MultipartFile[] images) throws JsonProcessingException {
 
+        if(userId == null || postJson == null || images == null) {
+            throw new MissingParameterException("Parâmetros faltando: userId, post, ou photoUrl");
+        }
+
         ObjectMapper objectMapper = new ObjectMapper();
         Posts posts = objectMapper.readValue(postJson, Posts.class);
 
         User user = userProfileService.getProfileById(userId);
         if (user == null) {
-            return ResponseEntity.notFound().build();
+            throw new InvalidIdException("User ID inválido: " + userId);
         }
         posts.setUser(user);
 
@@ -83,7 +90,7 @@ public class PostsController {
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<PostDTO> updatePost(@PathVariable("id") Long id, @RequestBody Posts posts) {
+    public ResponseEntity<PostDTO> updatePost(@PathVariable("id") Long id, @Valid @RequestBody Posts posts) {
         Posts updatedPosts = postsService.updatePost(id, posts);
         return updatedPosts != null ? ResponseEntity.ok(PostDTO.fromEntity(updatedPosts)) : ResponseEntity.notFound().build();
     }

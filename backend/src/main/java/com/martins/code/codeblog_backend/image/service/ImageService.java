@@ -29,10 +29,7 @@ public class ImageService {
 
     public String uploadImageToImgur(MultipartFile imageFile) throws IOException {
 
-        System.out.println(imageFile.getSize());
-
         if(imageFile.getSize() > MAX_FILE_SIZE) {
-            System.out.println("Image excede 10MB");
             throw new ImageException.ImageSizeExceededException("Tamanho da imagem excede o limite máximo de 10MB. Tamanho: " + imageFile.getSize() + " Bytes");
         }
 
@@ -51,7 +48,6 @@ public class ImageService {
         HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(bodyMap, headers);
 
         ResponseEntity<String> response = restTemplate.postForEntity(imgurApiEndpoint, requestEntity, String.class);
-        System.out.println("Resposta do Imgur: " + response.getBody());
 
         Files.deleteIfExists(tempFile.toPath());
 
@@ -64,8 +60,6 @@ public class ImageService {
     }
 
     private File convert(MultipartFile file) throws IOException {
-
-
 
         File tempFile = Files.createTempFile("upload-", file.getOriginalFilename()).toFile();
         try (FileOutputStream fileOutputStream = new FileOutputStream(tempFile)) {

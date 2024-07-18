@@ -20,7 +20,7 @@ const Home = () => {
                 <Header />
                 <Aside />
                 <section className="bg-black w-full h-home p-4 flex flex-col gap-12 lg:w-9/12 lg:absolute lg:right-0 lg:top-20 lg:overflow-y-auto 2xl:w-10/12">
-                    <section className={`${isOpenInputPost ? 'flex' : 'hidden'} flex-col gap-4 sm:block`}>
+                    <section className={`${isOpenInputPost ? 'flex' : 'hidden'} border-b border-opaque pb-4 flex-col gap-4 sm:block`}>
                         <form className="flex flex-col gap-4" onSubmit={sendPost}>
                             <section className="flex items-center justify-end gap-4 sm:order-2">
                                 <button className={`bg-white text-light font-poppins font-semibold w-1/2 p-1 rounded-md ${!isOpenInputPost ? 'hidden' : 'block'} sm:hidden`} onClick={togglePostArea} type="button">

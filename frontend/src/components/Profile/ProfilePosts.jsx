@@ -27,7 +27,10 @@ const ProfilePosts = () => {
                     </section>
                     <section className="flex flex-col gap-2">
                         <p className="text-white text-lg font-poppins font-light">{item.content}</p>
-                        {item.photoUrl && <img src={item.photoUrl} alt="" />}
+                        {item.photoUrl && item.photoUrl.length < 2 && <img src={item.photoUrl} alt="" />}
+                        {item.photoUrl && item.photoUrl.length >=2 && item.photoUrl.map((image, index)=> 
+                            <img src={image} alt="" key={index} />
+                        )}
                     </section>
                 </article>
             )}

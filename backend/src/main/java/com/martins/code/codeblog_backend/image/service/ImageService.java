@@ -1,5 +1,6 @@
 package com.martins.code.codeblog_backend.image.service;
 
+import com.martins.code.codeblog_backend.exceptions.custom.ImageException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
@@ -21,10 +22,20 @@ import java.nio.file.Files;
 @Service
 public class ImageService {
 
+    private final static long MAX_FILE_SIZE = 10 * 1024 * 1024;
+
     @Value("${imgur.client.id}")
     private String clientId;
 
     public String uploadImageToImgur(MultipartFile imageFile) throws IOException {
+
+        System.out.println(imageFile.getSize());
+
+        if(imageFile.getSize() > MAX_FILE_SIZE) {
+            System.out.println("Image excede 10MB");
+            throw new ImageException.ImageSizeExceededException("Tamanho da imagem excede o limite máximo de 10MB. Tamanho: " + imageFile.getSize() + " Bytes");
+        }
+
         String imgurApiEndpoint = "https://api.imgur.com/3/image";
         RestTemplate restTemplate = new RestTemplate();
 
@@ -53,6 +64,9 @@ public class ImageService {
     }
 
     private File convert(MultipartFile file) throws IOException {
+
+
+
         File tempFile = Files.createTempFile("upload-", file.getOriginalFilename()).toFile();
         try (FileOutputStream fileOutputStream = new FileOutputStream(tempFile)) {
             fileOutputStream.write(file.getBytes());

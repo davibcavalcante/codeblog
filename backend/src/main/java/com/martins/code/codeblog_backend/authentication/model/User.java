@@ -1,5 +1,6 @@
 package com.martins.code.codeblog_backend.authentication.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.martins.code.codeblog_backend.profile.model.Posts;
 import jakarta.persistence.*;
@@ -20,8 +21,12 @@ public class User {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     private String name;
+
+    @JsonIgnore
     private String email;
+    @JsonIgnore
     private String password;
+
     private String username;
     private String office;
     private String photoUrl;

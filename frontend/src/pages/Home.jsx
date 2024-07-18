@@ -33,7 +33,7 @@ const Home = () => {
                                     <input type="text" placeholder="Digite o título do seu post" className="bg-transparent text-white p-2 border-2 border-white rounded-md shadow-xl outline-none flex-1" name="title" />
                                     <label className='bg-light text-white font-poppins p-2 w-fit rounded-md shadow-sm shadow-white cursor-pointer flex gap-2 items-center'>
                                         <FolderClosed /> <span className="hidden sm:block">Imagem</span>
-                                        <input type="file" className='hidden' accept="image/*" />
+                                        <input type="file" name="image" className='hidden' accept="image/*" multiple />
                                     </label>
                                 </section>
                                 <textarea type="text" placeholder="Digite o conteúdo do seu post" className="bg-transparent text-white border-2 border-white p-2 w-full min-h-24 rounded-md shadow-xl outline-none" name="content" />

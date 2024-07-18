@@ -2,17 +2,15 @@ import { useContext } from 'react';
 import { Copyright } from 'lucide-react';
 import { capitalizeText } from '../../utils/capitalizeText';
 
+import UserContext from '../../contexts/UserContext';
 import AsideContext from '../../contexts/AsideContext';
 import AsideNav from './AsideNav';
-import useFetchUser from '../../hooks/useFetchUser';
 
 const Aside = () => {
-    const { user, error, loading } = useFetchUser();
+    const { user, error, loading } = useContext(UserContext);
     const { isAsideOpen } = useContext(AsideContext);
 
-    if (loading) {
-        return <div>Loading...</div>;
-    }
+    if (loading) return;
 
     if (error) {
         return <div>Error: {error.message}</div>;
@@ -25,7 +23,7 @@ const Aside = () => {
             </nav>
             <section className='flex-1'>
                 <ul className='list-disc list-inside px-4 xl:px-6 xl:columns-2'>
-                    {user.likes.map(item =>
+                    {user && user.likes.map(item =>
                         <li className='text-white font-poppins mb-2' key={item}>{capitalizeText(item)}</li>
                     )}
                 </ul>

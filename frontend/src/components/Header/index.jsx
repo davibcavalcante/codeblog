@@ -9,9 +9,7 @@ const Header = () => {
     const { toggleAside } = useContext(AsideContext);
     const { user, error, loading } = useContext(UserContext);
 
-    if (loading) {
-        return <div>Loading...</div>;
-    }
+    if (loading) return;
 
     if (error) {
         return <div>Erro</div>;

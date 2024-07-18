@@ -1,4 +1,4 @@
-import { authApiFetch } from "../axios/config";
+import { authApiFetch, authApiImage } from "../axios/config";
 import { getUser } from "./user";
 
 export const sendPost = async (e) => {
@@ -6,14 +6,21 @@ export const sendPost = async (e) => {
 
     const userId = JSON.parse(localStorage.getItem('user_id'));
 
-    const formData = {
+    const post = {
         title: e.target.title.value,
         content: e.target.content.value,
-        imageUrl: e.target.image.files[0]
+    }
+
+    const images = e.target.image.files;
+
+    const formData = new FormData();
+    formData.append("post", JSON.stringify(post));
+    
+    for (let image of images) {
+        formData.append("photoUrl", image);
     };
 
-    const results = await authApiFetch.post(`/api/post/${userId}`, formData);
-    console.log(results.data);
+    await authApiImage.post(`/api/post/${userId}`, formData);
 }
 
 export const getUserPosts = async () => {

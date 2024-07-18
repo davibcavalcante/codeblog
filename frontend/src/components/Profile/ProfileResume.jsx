@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ChevronRight, FolderClosed } from 'lucide-react';
 import { capitalizeText } from '../../utils/capitalizeText';
 import { newProfileImage } from '../../utils/user';
@@ -6,6 +7,7 @@ import { newProfileImage } from '../../utils/user';
 import UserContext from '../../contexts/UserContext';
 
 const ProfileResume = () => {
+    const navigate = useNavigate();
     const { user, error, loading, refetchUser } = useContext(UserContext);
 
     const sendImage = async (e) => {
@@ -15,12 +17,14 @@ const ProfileResume = () => {
         if (isUpdated) refetchUser();
     };
 
-    if (loading) {
-        return <div>Loading...</div>;
-    }
+    if (loading) return;
 
     if (error) {
         return <div>Erro</div>;
+    }
+
+    if (!loading && !user) {
+        navigate('/login');
     }
 
     return (

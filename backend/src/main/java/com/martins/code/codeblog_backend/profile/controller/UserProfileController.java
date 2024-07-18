@@ -47,7 +47,7 @@ public class UserProfileController {
         return ResponseEntity.ok(photoUrl);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/edit/{id}")
     public ResponseEntity<User> updateProfile(@PathVariable UUID id, @RequestBody User userProfile) {
         User updatedProfile = userProfileService.updateProfile(id, userProfile);
         return updatedProfile != null ? ResponseEntity.ok(updatedProfile) : ResponseEntity.notFound().build();

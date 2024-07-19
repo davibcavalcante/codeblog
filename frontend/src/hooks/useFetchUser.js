@@ -1,11 +1,11 @@
 import { useState, useEffect, useCallback } from 'react';
-import { getUser } from '../utils/user';
+import { getUser } from '../api/user';
 
 const useFetchUser = () => {
     const [user, setUser] = useState(null);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [fetchTrigger, setFetchTrigger] = useState(0); // Estado para controlar quando a busca deve ser executada
+    const [fetchTrigger, setFetchTrigger] = useState(0);
 
     const fetchUser = useCallback(async () => {
         setLoading(true);

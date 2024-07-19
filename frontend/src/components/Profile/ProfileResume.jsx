@@ -2,17 +2,17 @@ import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ChevronRight, FolderClosed } from 'lucide-react';
 import { capitalizeText } from '../../utils/capitalizeText';
-import { newProfileImage } from '../../utils/user';
+import { postProfileImage } from '../../api/user';
 
 import UserContext from '../../contexts/UserContext';
 
 const ProfileResume = () => {
-    const navigate = useNavigate();
     const { user, error, loading, refetchUser } = useContext(UserContext);
+    const navigate = useNavigate();
 
     const sendImage = async (e) => {
         const image = e.target.files[0];
-        const isUpdated = await newProfileImage(image);
+        const isUpdated = await postProfileImage(image);
 
         if (isUpdated) refetchUser();
     };

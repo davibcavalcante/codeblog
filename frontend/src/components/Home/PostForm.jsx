@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { AlertCircle, DiamondPlus, Edit, FolderClosed, Pen, X } from "lucide-react";
-import { sendPost } from "../../utils/posts";
+import { postPost } from "../../api/posts";
 
 const PostForm = () => {
     const [isOpenInputPost, setIsOpenInputPost] = useState(false);
@@ -49,7 +49,7 @@ const PostForm = () => {
             formData.append("photoUrl", image.file);
         };
 
-        const isPublished = await sendPost(formData);
+        const isPublished = await postPost(formData);
 
         if (isPublished) {
             e.target.reset();

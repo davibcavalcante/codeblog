@@ -6,8 +6,8 @@ import AsideContext from '../../contexts/AsideContext';
 import UserContext from '../../contexts/UserContext';
 
 const Header = () => {
-    const { toggleAside } = useContext(AsideContext);
     const { user, error, loading } = useContext(UserContext);
+    const { toggleAside } = useContext(AsideContext);
 
     if (loading) return;
 

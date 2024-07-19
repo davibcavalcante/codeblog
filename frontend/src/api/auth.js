@@ -1,8 +1,8 @@
-import { freeApiFetch } from "../axios/config";
+import { apiFetch } from "../axios/config";
 
-export const login = async (formData) => {
+export const postLogin = async (formData) => {
     try {
-        const results = await freeApiFetch.post('/auth/login', formData);
+        const results = await apiFetch.post('/auth/login', formData);
 
         const token = await results.data.token;
         const userId = await results.data.userId
@@ -17,9 +17,9 @@ export const login = async (formData) => {
     }
 }
 
-export const register = async (formData) => {
+export const postRegister = async (formData) => {
     try {
-        const results = await freeApiFetch.post('/auth/register', formData);
+        const results = await apiFetch.post('/auth/register', formData);
 
         const token = await results.data.token;
         const userId = await results.data.userId

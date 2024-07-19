@@ -1,24 +1,41 @@
 import axios from 'axios';
 
-export const freeApiFetch = axios.create({
+export const apiFetch = axios.create({
     baseURL: 'http://localhost:8080',
     headers: {
         "Content-Type": "application/json; charset=UTF-8",
     }
 });
 
-export const authApiFetch = axios.create({
-    baseURL: 'http://localhost:8080',
-    headers: {
-        "Content-Type": "application/json; charset=UTF-8",
-        "Authorization": JSON.parse(localStorage.getItem('auth_token'))
-    }
-});
-
-export const authApiImage = axios.create({
+export const apiFormDataFetch = axios.create({
     baseURL: 'http://localhost:8080',
     headers: {
         "Content-Type": "multipart/form-data",
-        "Authorization": JSON.parse(localStorage.getItem('auth_token'))
     }
 });
+
+apiFetch.interceptors.request.use(
+    config => {
+        const token = JSON.parse(localStorage.getItem('auth_token'));
+        if (token) {
+            config.headers.Authorization = `Bearer ${token}`;
+        }
+        return config;
+    },
+    error => {
+        return Promise.reject(error);
+    }
+);
+
+apiFormDataFetch.interceptors.request.use(
+    config => {
+        const token = JSON.parse(localStorage.getItem('auth_token'));
+        if (token) {
+            config.headers.Authorization = `Bearer ${token}`;
+        }
+        return config;
+    },
+    error => {
+        return Promise.reject(error);
+    }
+);

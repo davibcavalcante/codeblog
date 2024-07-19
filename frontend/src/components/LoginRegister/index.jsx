@@ -1,22 +1,18 @@
-import { useState,useContext } from 'react';
+import { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-import { login, register } from '../../utils/auth';
+import { postLogin, postRegister } from '../../api/auth';
 import { focusIn, focusOut } from '../../utils/inputAnimate';
-
-import LoginRegisterInput from "./LoginRegisterInput";
-import LoginRegisterButton from "./LoginRegisterButton";
-import DataList from './DataList';
-
 import { genericTags, officeTags } from '../../utils/tags';
 
 import { FaWhatsapp } from 'react-icons/fa'
 import { Github, Twitter, Youtube, Instagram, ArrowRight, ArrowLeft } from 'lucide-react';
 
-import UserContext from '../../contexts/UserContext';
+import LoginRegisterInput from "./LoginRegisterInput";
+import LoginRegisterButton from "./LoginRegisterButton";
+import DataList from './DataList';
 
 const LoginRegister = ({ action }) => {
-    const { user, error, loading, refetchUser } = useContext(UserContext);
     const navigate = useNavigate();
 
     const [officeSelected, setOfficeSelected] = useState('selecione');
@@ -36,12 +32,8 @@ const LoginRegister = ({ action }) => {
             password: e.target.password.value
         };
 
-        const isLoggedIn = await login(formData);
-        
-        if (isLoggedIn) {
-            await refetchUser();
-            if (!loading && !error && user) return navigate('/profile');
-        }
+        const isLoggedIn = await postLogin(formData);
+        if (isLoggedIn) navigate('/profile');
     }
 
     const sendRegisterData = async (e) => {
@@ -59,12 +51,8 @@ const LoginRegister = ({ action }) => {
             likes: likesSelected.map(item => item.value)
         }
 
-        const isRegistered = await register(formData);
-        
-        if (isRegistered) {
-            await refetchUser();
-            if (!loading && !error && user) return navigate('/profile');
-        }
+        const isRegistered = await postRegister(formData);
+        if (isRegistered) navigate('/profile');
     }
 
     return (

@@ -2,7 +2,9 @@ import LoginRegister from "../components/LoginRegister";
 
 const Register = () => {
     return (
-        <LoginRegister action={'register'} />
+        <UserProvider>
+            <LoginRegister action={'register'} />
+        </UserProvider>
     );
 }
 

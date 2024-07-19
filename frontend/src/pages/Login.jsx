@@ -1,8 +1,11 @@
+import { UserProvider } from "../contexts/UserContext";
 import LoginRegister from "../components/LoginRegister";
 
 const Login = () => {
     return (
-        <LoginRegister action={'login'} />
+        <UserProvider>
+            <LoginRegister action={'login'} />
+        </UserProvider>
     );
 }
 

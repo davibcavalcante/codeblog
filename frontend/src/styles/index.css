@@ -60,6 +60,18 @@
 
 @layer utilities {
 
+    .w-post {
+        width: calc(50% - 8px);
+    }
+
+    .h-post {
+        height: calc(50% - 8px);
+    }
+
+    .max-h-post {
+        max-height: 640px;
+    }
+
     .h-login,
     .h-aside,
     .h-home {

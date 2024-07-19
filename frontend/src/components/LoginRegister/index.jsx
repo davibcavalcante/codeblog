@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState,useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { login, register } from '../../utils/auth';
@@ -13,7 +13,10 @@ import { genericTags, officeTags } from '../../utils/tags';
 import { FaWhatsapp } from 'react-icons/fa'
 import { Github, Twitter, Youtube, Instagram, ArrowRight, ArrowLeft } from 'lucide-react';
 
+import UserContext from '../../contexts/UserContext';
+
 const LoginRegister = ({ action }) => {
+    const { user, error, loading, refetchUser } = useContext(UserContext);
     const navigate = useNavigate();
 
     const [officeSelected, setOfficeSelected] = useState('selecione');
@@ -34,7 +37,11 @@ const LoginRegister = ({ action }) => {
         };
 
         const isLoggedIn = await login(formData);
-        if (isLoggedIn) navigate('/profile');
+        
+        if (isLoggedIn) {
+            await refetchUser();
+            if (!loading && !error && user) return navigate('/profile');
+        }
     }
 
     const sendRegisterData = async (e) => {
@@ -53,7 +60,11 @@ const LoginRegister = ({ action }) => {
         }
 
         const isRegistered = await register(formData);
-        if (isRegistered) navigate('/profile');
+        
+        if (isRegistered) {
+            await refetchUser();
+            if (!loading && !error && user) return navigate('/profile');
+        }
     }
 
     return (

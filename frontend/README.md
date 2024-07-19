@@ -7,15 +7,16 @@
 * Antes de executar instale os pacotes com **npm install**
 * Feito isso, inicie o frontend com **npm run dev**
 
-## ROTAS DESENVOLVIDAS ATÉ - **03/07**
+## ROTAS DESENVOLVIDAS ATÉ - **18/07**
 
-* /login
-* /register
+* / => Home => Formulário de envio de posts
+* /login => Formulário de Login
+* /register => Formulário de Registro
 * /profile
-    * /
-    * /posts
+    * / => Resumo do perfil do usuário
+    * /posts => Todas as publicações do usuário
 
-## REQUISIÇÕES DESENVOLVIDAS ATÉ **12/07**
+## REQUISIÇÕES DESENVOLVIDAS ATÉ **18/07**
 * /auth/register => body: 
     ```
     {
@@ -25,7 +26,7 @@
         password: typeof STRING,
         bio: typeof STRING,
         office: typeof STRING,
-        photo_url: '' (Enviar vazio até configurações posteriores),
+        photo_url: '' => (Enviar vazio),
         skills: typeof ARRAY DE STRINGS,
         likes: typeof ARRAY DE STRINGS
     }
@@ -35,5 +36,26 @@
     {
         email: typeof STRING,
         password: typeof STRING
+    }
+    ```
+* /api/posts/userId => body typeof form-data:
+    ```
+    {
+        photoUrl: typeof ARRAY DE ARQUIVOS image/* (MAX: 4),
+        post: JSON.stringfy({
+            title: "Título de post",
+            content: "Conteúdo do post"
+        })
+    }
+    ```
+
+* /api/posts/user/userId => GET => Todos os posts do usuário
+
+* /api/profiles/userId => GET => Informações de perfil do usuário
+
+* /api/profiles/userId/image => body typeof form-data:
+    ```
+    {
+        photoUrl: typeof ARQUIVO image/*
     }
     ```
